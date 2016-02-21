@@ -1,0 +1,76 @@
+$def with(content)
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <title>$content.title</title>
+ <!-- jquery -->
+<script src="../static/jquery/jquery-1.6.2.min.js"></script>
+<!-- 自定义css -->
+<link href="../static/css/T_index.css" type="text/css" rel="stylesheet" />
+<!-- 自定义js -->
+<script type="text/javascript" src="../static/javascript/T_index.js"></script>
+$if 'cssfiles' in content:
+	$if content.cssfiles:
+	    $for f in content.cssfiles.split():
+	        <link rel="stylesheet" href="../static/css/$f" type="text/css"/>
+$if 'jsfiles' in content:
+	$if content.jsfiles:
+	    $for f in content.jsfiles.split():
+	        <script src="../static/javascript/$f"></script>
+$if 'css' in content:
+	$if content.css:
+	    $for f in content.css.split():
+	        <link rel="stylesheet" href="../static/$f" type="text/css"/>
+$if 'js' in content:
+	$if content.js:
+	    $for f in content.js.split():
+	        <script src="../static/$f"></script>
+	        
+
+</head>
+<body>
+<div class='top'>
+    <p>
+    	<!--  <a href="#">English Version</a>
+        <span>|</span>
+        <a href="#">中文</a>
+        <span>|</span>-->
+        $ name_id=logged()
+        $if name_id:
+        	<a href="/user_blog?name_id=$name_id">$name_id博客入口</a>
+        $else:
+        	<a href="/login">登陆</a>
+        <span>|</span>
+        <a href="#">免责声明</a>
+    </p>
+    <div style="clear:both; height:2px;background:#FFF;"></div>
+</div>
+
+<div class="header"> 
+	<div class="logo"><img src="../static/images/logo.png" /> </div>  
+</div>
+
+<ul class="banner">
+    <li><a href="/">首页</a></li>
+    <li><a href="/?category=plat">项目简介</a></li>
+    <li><a href="/?category=policies">新闻简讯</a></li>
+    <li><a href="/bbs">BBS互动</a></li>
+    <li><a href="/user_blog">个人平台</a></li>
+    <li><a href="/wiki/" target="_blank">知识协同</a></li>
+    <li><a href="/meeting">会议管理</a></li>
+    <li><a href="/download/papers">资料下载</a></li>
+</ul>
+
+<div class="content" >
+		$:content
+</div>
+
+<div class='footer'>
+	<table>
+		<tr><td>Copyright  2013 国家生态补偿与绿色发展研究室 All Rights Reserved</td></tr>
+		<tr><td>　　　 技术支持：中国农业大学信息与电气工程学院 </td></tr>
+	</table>
+</div>
+</body>
+</html>

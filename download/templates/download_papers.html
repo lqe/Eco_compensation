@@ -1,0 +1,21 @@
+$def with(papers,name_id)
+
+$var title:下载页面
+
+
+<div class="content" >
+	<ul >
+		$if len(papers):
+			$for i in papers:
+				<li style='border:1px solid #f00'>
+					标题：$i['title']<br />
+					作者：$i['author']<br />
+					发布日期：$i['date'] &nbsp; &nbsp; 消耗积分：$i['value']<br />
+					简介：$i['brief_content']  <input class='clickDownload' type="button"  onclick="javascript:document.location.href='/download?name_id=$name_id&&href=$i['href']'" value="点击下载" />
+				</li><br />
+	</ul> 
+</div>
+
+<link rel="stylesheet" href="../../static/download/css/download_parpers.css" >
+<script src="../../static/jquery/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="../../static/download/javascript/download_parpers.js"></script>

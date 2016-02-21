@@ -1,0 +1,230 @@
+$def with(Info,paths)
+
+$var  jsName: bbs.js
+$var  cssName: bbs.css
+
+$if Info['SName']!='homePage':
+	$var  title : BBS列表
+	<table class="table table-striped">
+    <caption style=' background:#63C; color: #3F6;text-align:left'>
+    	帖子标题
+    </caption>
+    <thead>
+		<tr>
+		<th >标题</th>
+        <th>发帖人</th>
+        <th>回帖数</th>
+        <th>分数</th>
+        <th>功能</th>
+		</tr>
+	</thead>
+    <tbody>
+        $if Info['STopic']:
+            $for rec in Info['STopic']:
+                <tr>
+                    <td width="50%">
+                        <a href="/bbs/reply/replyPage?TId=$rec['TId']" target="_blank">
+                            $rec['TTitle']
+                            $if rec['TRecommend']:
+                                <font color="#FF0000">
+                                顶置
+                                </font>
+                        </a>
+                    </td>
+                    <td width="20%">$rec['TUid']<br />$rec['TTime'][5:]</td>
+                    <td width="10%">$rec['replyCount']</td>
+                    <td width="10%">$rec['TScore']</td>
+                    <td width="10%"><a href="#">操作</a></td>
+                </tr>
+	</tbody>
+	</table>    
+    <ul class="pagination">
+    	$code : pre=r'.\bbs?htmlName=bbs_content'
+        <li ><a  href="$pre&SName=$Info['SName']&page=1">首页</a></li>
+        $for i in [i+1 for i in range(5)]: 
+        	<li ><a class='Page' href="$pre&SName=$Info['SName']&page=$i&limit=50">$i</a></li>
+        <li><a class='maxPage' href="$pre&SName=$Info['SName']&page=$Info['maxPage']">尾页</a></li>
+    </ul> 
+$else:
+	 $var  title : BBS内容       
+    <!--图片新闻-->
+    <div class='pic_news'>
+    <div id='picContent' style="position:relative;overflow:hidden;" >
+            <div id='pic' class="picShow" style="position:relative;">
+                $ index =0
+                $for i in paths:
+                    $ style="left:"+mystr(120 * index) +"px ; text-align:center; padding-right:10px; border:0;  position:absolute"
+                    $ id = 'pic'+mystr(index)
+                    <div id='$id' style="$style">
+                        <a class="box" href="$i" rel='gallery' title="和 $i[i.rfind('\\')+1:i.rfind('.')] 相关的版块">
+                            <img src="$i" />
+                        </a>
+                        <br />
+                        <a><font>$i[i.rfind('\\')+1:i.rfind('.')] </font></a>
+                    </div>
+                    $code:
+                        index = index+1
+            </div>
+            <div id='picCopy' class="picShow" style="position:relative;">
+                $ index =0
+                $for i in paths:
+                    $ style="left:"+mystr(120 * index) +"px ; text-align:center; padding-right:10px; border:0;  position:absolute"
+                    $ id = 'pic'+mystr(index)
+                    <div id='$id' style="$style">
+                        <a class="box" href="$i" rel='gallery' title="设备1">
+                            <img src="$i" />
+                        </a>
+                        <br />
+                        <a><font>$i[i.rfind('\\')+1:i.rfind('.')]  </font></a>
+                    </div>
+                    $code:
+                        index = index+1
+            </div>
+    </div>
+    </div>
+    
+    <!--搜索框-->
+    <div class='search'>
+        <form method="GET" action="#" >
+          <div class="input-group">
+                    <input type="search" class="form-control search-query" name="query" placeholder="搜索..." />
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">
+                        <span class="glyphicon glyphicon-search"></span>
+                      </button>
+                    </span>
+          </div>
+        </form>
+    </div>
+    <!--论坛焦点 和 论坛公告-->
+    <div class='News' > 
+        <div class='left' > 
+			<div class='panel panel-primary new1'>
+                <div class="panel-heading">
+                    <h3 class="panel-title">论坛焦点</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-condensed"  >
+					<tbody >
+                        $code:lg=len(Info['fousTopic'])
+                        $if lg==1:
+                            <tr >
+                            	<td  colspan="4" class="text-center">
+                                	<a href="/bbs/reply/replyPage?TId=$Info['fousTopic'][0]['TId']" target="_blank">
+                                    	$Info['fousTopic'][0]['TTitle']
+                                    </a>
+                            	</td>
+                        	</tr>
+                        $elif lg>=2:
+                        	<tr> 
+                            	<td  colspan="2" class="text-center">
+                            		<a href="/bbs/reply/replyPage?TId=$Info['fousTopic'][0]['TId']" target="_blank">
+                            			$Info['fousTopic'][0]['TTitle']
+                            		</a>
+                            	</td>
+                            	<td  colspan="2" class="text-center">
+                            		<a href="/bbs/reply/replyPage?TId=$Info['fousTopic'][0]['TId']" target="_blank">
+                            			$Info['fousTopic'][1]['TTitle']
+                            		</a>
+                            	</td>
+                            </tr>
+                            <tr>
+                            $code:i=1
+                            $for fousT in Info['fousTopic'][2:]:
+                            	<td>
+                                	<a href="/bbs/reply/replyPage?TId=$Info['fousTopic'][0]['TId']" target="_blank">
+                                	$Info['fousTopic'][i+1]['TTitle']
+                                    </a>
+                            	</td>
+                                $if i==4:</tr><tr>
+                                $code:i=i+1
+                            </tr>                   
+					</tbody>
+                    </table> 
+                </div>
+			</div>
+            <div class='panel panel-primary new2'>
+                <div class="panel-heading">
+                    <h3 class="panel-title"  >版主推荐</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover  table-condensed"  >
+                    <tbody >
+                        $for recommedT in Info['recommedTopic']:
+                            <tr>
+                                <td colspan="2">【$recommedT['SName']】 <font color="#CCCCCC">[$recommedT['SMasterId']]版主推荐</font></td>
+                                <td colspan="3">
+                                	<a href="/bbs/reply/replyPage?TId=$recommedT['TId']" target="_blank">
+                                		$recommedT['TTitle']
+                                	</a>
+                                </td>
+                                <td><font color="#660099">$recommedT['TUid']</font></td>
+                            </tr>
+                    </tbody>
+                    </table> 
+                </div>
+            </div>
+        </div>
+        <div class='right' > 
+            <div class='panel panel-primary right_new1'>
+                <div class="panel-heading">
+                    <h3 class="panel-title">论坛公告</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-condensed"  >
+                        <tbody >
+                            <tr >
+                               <td><a>新增《当今时事》版块</a></td>
+                             </tr>
+                            <tr>
+                                <td><a>近期服务器升级,带来不便,请原谅</a></td>
+                             </tr>
+                              <tr>
+                                <td><a>本周在上海举行生态补偿机制研讨会</a></td>
+                             </tr>
+                        </tbody>
+                    </table> 
+                </div>
+            </div>
+            <div class='panel panel-primary right_new2'>
+                <div class="panel-heading">
+                    <h3 class="panel-title">推荐话题</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-condensed"  >
+                        <tbody >
+                       		$for hotT in Info['hotTopic']:
+                            	<tr >
+                                <td colspan="6">
+                                	<a href="/bbs/reply/replyPage?TId=$hotT['TId']" target="_blank">
+                                    	$hotT['TTitle']
+                                    </a>
+                                </td>
+                                <td><font color="#99CC66">$hotT['TClickCount']</font></td>
+                                </tr>
+                    	</tbody>
+                    </table> 
+                </div>
+            </div>
+            <div class='panel panel-primary right_new3'>
+                <div class="panel-heading">
+                    <h3 class="panel-title">论坛帮助</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-condensed"  >
+                        <tbody >
+                            <tr >
+                               <td><a>新手入门</a></td>
+                               <td><a>提问的智慧</a></td>
+                             </tr>
+                              <tr>
+                                <td><a>论坛规则</a></td>
+                                <td><a>常见问题</a></td>
+                             </tr>
+                        </tbody>
+                    </table> 
+                </div>
+            </div>
+        </div>
+    </div> 
+

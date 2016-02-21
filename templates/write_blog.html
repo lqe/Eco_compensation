@@ -1,0 +1,52 @@
+$def with(name_id='',blog='')
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!--自定义CSS样式-->
+        <link rel="stylesheet" type="text/css" href="../static/css/write_blog.css" />
+        <!--图标定义样式-->
+        <link rel="stylesheet" type="text/css" href="../static/ECBM/css/icons.css" />
+        <!--extjs自带样式-->
+        <link rel="stylesheet" type="text/css" href="../static/ECBM/extjs/resources/css/ext-all.css" />
+        <script type="text/javascript"	src="../static/ECBM/extjs/bootstrap.js"></script>
+        <script type="text/javascript" src="../static/ECBM/extjs/ext-lang-zh_CN.js"></script>	
+        <!--自定义js-->
+        <script type="text/javascript" src="../static/javascript/write_blog.js"></script>
+        <script type="text/javascript" src="../static/ECBM/app/view/ul/MyHtmleditor.js"></script>	
+        <title>博文发布</title>
+    </head>
+    <body style="margin:0 auto; width:960px">
+    <div class='top'>
+     <ul>
+     	<li onclick="window.location.href='/user_blog?name_id=$name_id'">个人中心</li>
+        <li class='line'>|</li>
+        <li >$name_id</li>
+     </ul>
+    </div>
+    <div class='content'>
+    	<div class='content1'>
+       	 发博文
+        </div>
+       <form action='/write_blog' method='post' class='form' id="formId">
+            <div class='content2'>
+           	 标题:<input type="text" name="title" style="width:460px"/>
+            <input type="text" name="date"  value="" readonly="true" style="width:250px; padding-left:10px "/>
+            <input type="button" value="当前时间" style="height:24px"/>
+            </div>
+            <div class='content3'>
+                <div class="textarea_id" id="textarea_id" style="" ></div>
+            </div>
+            <div class='content4'>
+            	分类：<div class='classification'  id='classification'></div>
+            </div>
+            <div class='divBtn'>
+            	<input style='display:none' type="text" name="name_id" value=$name_id />
+            	<input style='display:none' type="text" name="_id" value=""/>
+                <input id='btn' class='btn' type="button" value="发布博文" />
+            </div>
+         </form> 
+    </div>
+    <p id='Htmlvar' style='display:none'>$name_id</p>
+    <p id='HtmlBlog' style='display:none'>$blog</p>
+    </body>
+</html>

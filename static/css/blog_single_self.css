@@ -1,0 +1,47 @@
+@charset "utf-8";
+/* CSS Document */
+*{margin:0;padding:0;font-size:16px}
+a,a:hover{ text-decoration:none;}
+ul{list-style:none;}         /*列表项标记的类型*/ 
+
+body{background:#999;}
+.top,.banner,.content,.footer{ margin:0 auto; width:960px; border:1px solid ; overflow:hidden;}
+.top{width:710px;height:100px; padding:30px 0 0 250px;}
+.blognav{}
+.blogtoparea{padding:4px 0}
+.blogtoparea a{font-size:34px;}
+.blogtoparea .edit{font-size:16px}
+.blognavInfo{}
+
+.banner{padding:4px 0;}
+.banner input{ float:right;width:70px;height:24px; margin-right:8px; cursor:pointer}
+
+.content{color:#26887C;}
+.content_left{ float:left;width:210px;margin-right:20px; } 
+
+.left1,.left2{border:1px solid #184C4A; margin-bottom:10px;background:#041918;}
+.left1_title,.left2_title{background:#184C4A; }
+.left1_content{ padding:4px; }
+.left1_content ul{line-height:2em;}
+.left1_content li{white-space:nowrap; overflow:hidden;text-overflow:ellipsis}
+.left2_content{padding:6px 6px; font-size:16px; overflow: hidden;}
+	
+.content_right{float:right;width:728px;border:1px solid #184C4A; margin-bottom:10px; background:#041918;} 
+.right1_title{background:#184C4A;}
+.single_blog_title,.single_blog_classification,.single_blog_content{padding-bottom:10px;overflow:hidden;}
+.single_blog_title{padding-top:20px;}
+.single_blog_classification{}
+.single_blog_content{}
+
+.comment{ border:1px solid #222;margin:20px; padding-bottom:10px; background:#fff; }
+.reply-title{ padding-left:20px;height:30px;line-height: 30px;color:#000; font-family: "微软雅黑", "黑体", "Helvetica Neue", Arial, Helvetica, "Nimbus Sans L", sans-serif;}
+.commented{border-top:1px solid #999; color: #999; padding:0 10px 1em 10px; }
+.commented li{border-bottom:1px solid #aaa}
+.commented_blank{text-align: center;}
+.comment textarea{ width:600px; height:100px;margin:0 auto;margin-left:20px;}
+.comment form{position: relative;}
+.comment .sub{position: absolute;top: 30%; right: 20px;}
+
+
+.footer{padding:10px 0; overflow:hidden;text-align:center;background:#000; color:#FFF;}
+

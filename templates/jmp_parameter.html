@@ -1,0 +1,15 @@
+$def with(parameter,url='/login')
+<html>
+<head>
+<title>$parameter</title> 
+<meta http-equiv="refresh" content="1;url=$url"> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+<h1 style="float:left" color='bule' ><font color="#80ff00">$parameter</font></h1>
+$if parameter in ["admin的后台管理模板  privilege=3","user的后台管理模板   privilege=2","reader的后台管理模板   privilege=1"]:
+	<a href="/reset" style="text-underline:none;"><input style=" float:right;ackground:#0f4; color:#234; font-size:24px;height:40px; width:60px;" type="buttion" value="注销"/></a></a>
+<br/><br/><br/><br/><br/><br/><br/><br/><font color="#c0c0c0"><em>3秒后跳转到原来的界面。。。</em></font>
+
+</body>
+</html>

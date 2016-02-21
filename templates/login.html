@@ -1,0 +1,102 @@
+$def with(url="",fun="login")
+$code:
+	if fun=="login":
+		styleLogin=''
+		styleRegister="""style='display:none'"""
+	else:
+		styleLogin="""style='display:none'"""
+		styleRegister=''
+		
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>登陆界面</title>
+<!-- 自定义css -->
+<link href="../static/css/login.css" type="text/css" rel="stylesheet" />
+<!-- jquery -->
+<script src="../static/jquery/jquery-1.6.2.min.js"></script>
+<!-- 自定义js -->
+<script type="text/javascript" src="../static/javascript/login.js"></script>
+<script type="text/javascript" src="../static/javascript/common.js"></script>
+
+</head>
+<body>
+
+
+<div class=login>
+	<div class='blank1'></div>
+    <form action='/login' method='post' class='form' id="login" $:styleLogin>
+        <table cellspacing="0" cellpadding="3" >
+            <tr>
+                <td colspan=2><span>欢迎使用</span></td>
+            </tr>
+            <tr>
+                <td>用户名：</td>
+                <td><input type='text' name='name_id' id='name_id'/></td>
+                <td class='formtips' style='width:40px;font-size:10px;align:left'></td>
+            </tr> 
+            <tr>
+                <td>密　码：</td>
+                <td><input type='password' name='password' id='password'/></td>
+                <td class='formtips' style='font-size:10px;align="left" '></td>
+            </tr>
+            <tr class="login_tr" >
+                <td align="right" >
+                	<div class='btn' id="registerBtn" style="cursor:pointer">注册</div>
+                </td>
+                <td align="center" >
+                	<div class='btn' style="cursor:pointer;" onclick="getElementById('login').submit()">登陆</div>
+                </td>
+            </tr>
+        </table>
+        <input type='hidden' name='url' value='$url' />
+    </form>
+     <!--注册部分-->
+    <form action='/register' method='post' class='form'  id="register" $:styleRegister>
+        <table cellspacing="0" cellpadding="3" >
+            <tr>
+                <td colspan=2><span>欢迎使用</span></td>
+                <div id='BackLogin' style="position: absolute; top:4px;left:340px;font-size:14px;color:#444;cursor: pointer;">返回登陆</div>
+            </tr>
+            <tr>
+                <td>用   户   名：</td>
+                <td><input type='text' name='name_id' id='name_id'/></td>
+                <td class='formtips' style='width:40px;font-size:10px;align:left'></td>
+            </tr> 
+            <tr>
+                <td>真实姓名：</td>
+                <td><input type='text' name='name' id='name'/></td>
+                <td class='formtips' style='width:40px;font-size:10px;align:left'></td>
+            </tr> 
+            <tr>
+                <td>密　　码：</td>
+                <td><input type='password' name='password' id='password1'/></td>
+                <td class='formtips' style='width:40px;font-size:10px;align:left'></td>
+            </tr>
+            <tr>
+                <td>重复密码：</td>
+                <td><input type='password' name='password2' id='password2'/></td>
+                <td class='formtips' style='width:40px;font-size:10px;align:left'></td>
+            </tr>
+            <tr>
+                <td>单　　位：</td>
+                <td><input type='text' name='department' id='department'/></td>
+                <td class='formtips' style='width:40px;font-size:10px;align:left'></td>
+            </tr>
+            <tr>
+                <td>邮箱地址：</td>
+                <td><input type='text' name='email' id='email'/></td>
+                <td class='formtips' style='width:40px;font-size:10px;align:left'></td>
+            </tr>
+            <tr class="register_tr">
+                <td colspan=2 align="center" >
+                <div class='btn registerBtn' style="cursor:pointer;width:100px;" >立即注册</div>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <div class='blank2'></div>
+</div>
+</body>
+</html>

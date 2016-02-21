@@ -1,0 +1,15 @@
+$def with(article)
+
+$var title:新闻简讯
+$var cssfiles: article_detail.css
+$var jsfiles: common.js
+
+
+<div class='right'>
+	$if article[0][u'category']!='plat':
+		<div class='title'><p>$article[0][u'title']</p></div>
+		<div class='time'><p>来源：$article[0][u'author'] &nbsp;&nbsp;发布日期：$article[0][u'date']</p></div>
+	$else:
+		<div class='title'><p>平台简介</p></div>
+	<div class='article'>$:article[0][u'content']</div>
+</div>

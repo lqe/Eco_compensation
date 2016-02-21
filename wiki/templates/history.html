@@ -1,0 +1,210 @@
+$def with(articles,childrens,pos=[('root','root')],versions='',limit=1,skip=1)
+
+<!-- 网页标题 -->
+$var title : 词条目录 
+
+<div class="container" style="margin:60px 0 10px 0;">
+		<div id="article-breadcrumbs">
+			<ul class="breadcrumb pull-left">
+			    <li class="active">词条级别 </li>
+			    $for i in pos:
+			    	<li><a href="/wiki?postion=$i[0]">$i[1]</a></li>
+			</ul>
+			<div class="pull-left" style="margin-left: 10px;">
+			  <div class="btn-group">
+			    <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#" style="padding: 7px;" title="">
+			      <span class="glyphicon glyphicon-list-alt"></span>
+			      <span class="caret"></span>
+			    </a>
+			    <ul class="dropdown-menu">
+			    	$if childrens:
+			    		$for index,children in  enumerate(childrens):
+			    			$if index > 7:
+			    				<li><a href="#"><em>...and more"</em></a></li>
+			    				break;
+				    		<li><a href="/wiki?postion=$children['postion']">$children['title']</a></li>
+			        $else:
+			        	<li><a href="#"><em>没有子词条" </em></a></li>
+			      	<li class="divider"></li>
+			      	<li><a href="/wiki/catalog?$articles[0]['postion']">同一级的词条 &raquo;</a></li>
+			    </ul>
+			  </div>
+			</div>
+			<div class="pull-left" style="margin-left: 10px;">
+			  <div class="btn-group">
+			    <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#" style="padding: 7px;" title="Sub-articles for">
+			      <span class="glyphicon glyphicon-file"></span>
+			      <span class="caret"></span>
+			    </a>    
+			    <ul class="dropdown-menu">
+			      <li>
+			      	$if articles[0]['postion']!='root':
+			      		$code:
+			      			index=articles[0]['postion'].rfind('/')
+			      			postion=articles[0]['postion'][:index]
+				        <a href="/wiki/create?postion=$postion" style="padding: 7px;">
+				        	<span class="glyphicon glyphicon-arrow-right"></span>
+							创建同级词条
+				        </a>
+			        <a href="/wiki/create?postion=$articles[0]['postion']" style="padding: 7px;">
+			          <span class="glyphicon glyphicon-arrow-down"></span>
+						创建下级词条
+			        </a>
+			      </li>
+			    </ul>
+			  </div>
+			</div>
+			<div style="clear: both"></div>
+		</div>
+		<ul class="nav nav-pills" id="article-menu">
+			<li class="pull-right">
+				<button type="button" class="btn btn-primary">
+			  		<a href="#" style='color:#fff'>
+			    		<span class="glyphicon glyphicon-time"></span> 历史记录
+			  		</a>
+			  	</button>
+			</li>
+			<li class="pull-right">
+				<button type="button" class="btn btn-link">
+			  		<a href="#" >
+			    		<span class="glyphicon glyphicon-edit"></span> 编辑
+			  		</a>
+			  	</button>
+			</li>
+			<li class="pull-right">
+				<button type="button" class="btn btn-link">
+			  		<a href="#"  >
+			    		<span class="glyphicon glyphicon-home"></span> 视图
+			  		</a>
+			  	</button>
+			</li>
+			<li class="pull-left ">
+				<h1 id="article-title">$articles[0]['title']/
+				$if articles[0]['postion']=='root':
+	          		<small style="font-size: 14px;">
+		            	<span class="glyphicon glyphicon-lock"></span> locked
+		            </small>
+        		</h1>
+			</li>
+		</ul>
+	</div>
+	
+	<!-- Main page contents go here -->
+	<div class='content' style='padding:10px 30px'>
+		$code:
+			end=skip+limit
+			if end >= len(versions):
+				end=None
+			total=len(versions)
+			for index,version in enumerate(versions):
+			 	ver=total-index 
+				version['ver']=ver
+			versions=versions[skip:end]
+			current=skip/limit+1
+			if total%limit==0:
+				size=total/limit
+			else:
+				size=total/limit+1
+		<p > 共计$total次修改记录 &nbsp;&nbsp; 当前第$current/$size页&nbsp; 版本数为 <strong>$len(childrens) 条</strong> .</p>
+
+		<table class="table table-striped">
+		  <tr>
+		    <th>标题</th>
+		    <th>版本</th>
+		    <th>最后修改时间</th>
+		    <th>查看</th>
+		    <th>适用版本</th>
+		  </tr>
+		  $ length=len(versions)
+			$if len(versions):
+				$for i,ch in enumerate(versions):
+					$ version=length-i 
+					<tr>
+						<td>
+							<a href="#"> $ch['title'] </a> 
+						</td>
+						<td>
+				         	版本$ch['ver']
+						</td>
+				      	<td>
+				        $ch['date']
+				      	</td>
+						<td>
+				      	<!-- 按钮触发模态框 -->
+						<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#$ch['_id']">
+				      		<span class="glyphicon glyphicon-folder-open" style='cursor: pointer;' onclick=""></span>
+				      	</button>
+				      	<!-- 模态框（Modal） -->
+						<div class="modal fade" id="$ch['_id']" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true">
+						   <div class="modal-dialog">
+						      <div class="modal-content">
+						         <div class="modal-header">
+						            <button type="button" class="close" 
+						               data-dismiss="modal" aria-hidden="true">
+						                  &times;
+						            </button>
+						            <h4 class="modal-title">
+						               $ch['title']
+						            </h4>
+						            <input class='_id' type='hidden' name='_id' value='$ch['_id']'/>
+						         </div>
+						         <div class="modal-body">
+						            $:ch['content']
+						         </div>
+						         <div class="modal-footer">
+						            <button type="button" class="btn btn-default" 
+						               data-dismiss="modal">关闭
+						            </button>
+						            <button type="button" class="btn btn-primary using">
+						               	使用次版本
+						            </button>
+						         </div>
+						      </div><!-- /.modal-content -->
+						</div><!-- /.modal -->	
+						</div>	<!-- 模态框end -->
+				      </td>
+				      <td>
+				      	$if ch['using']=='yes':
+				      		<span class="glyphicon glyphicon-eye-open" style='cursor: pointer;' onclick=""></span>
+				      </td>
+				    </tr>
+			$else:   
+				<tr>
+			      <td colspan="100">
+			        <em>此级别上没有词条记录</em>
+			      </td>
+			    </tr>
+		</table>
+		<div>
+        	<ul class="pagination " style='margin-left: 35%;'>
+        	    <li><a href="/wiki/history?postion=$versions[0]['postion']">首页</a></li>
+        	    $if current==1:
+        	    	<li><a href="#" disable>上一页</a></li>
+        	    $else:
+        	    	$code:
+        	    		skip=(current-2)*limit
+        	    	<li><a href="/wiki/history?postion=$versions[0]['postion']&&limit=$limit&&skip=$skip">上一页</a></li>
+         	    $if current==size:
+        	    	<li><a href="#" disable>下一页</a>
+        	    $else:
+        	    	$code:
+        	    		skip=limit*current
+        	    	<li><a href="/wiki/history?postion=$versions[0]['postion']&&limit=$limit&&skip=$skip">下一页</a></li>
+        	    $code:
+        	    	if total%limit==0:
+        	    		skip=limit*(total/limit - 1)
+        	    	else:
+        	    		skip=limit*(total/limit)
+        	    <li><a href="/wiki/history?postion=$versions[0]['postion']&&limit=$limit&&skip=$skip">尾页</a></li> 
+        	</ul>
+        </div>
+	</div>
+
+
+	
+	
+	
+	
+	
+	
+	

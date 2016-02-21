@@ -1,0 +1,212 @@
+$def with(res,re)
+
+$var title:会议管理
+$var css: meeting/css/meeting.css
+$var js:  meeting/javascript/meeting.js
+
+<div class='content'>
+	<div class='left'>
+		<ul>
+			<li>最新会议</li>
+			$if res:
+				$for i in res:
+					<li><a href='/meeting?_id=$i['_id']'>
+					$if len(i[u'title'])>13:$i[u'title'][:13]...
+					$else:$i[u'title']
+					</a></li>
+		</ul>
+	</div>
+	<div class='right'>
+		<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+	       	<tr>
+	         	<td width="110" height="30" align="center" bgcolor="#c8e6fa"><strong>会议基本信息</strong></td>
+	         </tr>
+	     </table>
+	     <table width="95%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#FFFFFF"  class="table_1px martop marbottom">
+	     	<tr>
+         		<td width="110" height="23" align="right" bgcolor="#f7f7f7">会议标题：</td>
+         		<td align="left">&nbsp;$re[ u'title']&nbsp;
+	       	</tr>
+	   		<tr>
+         		<td width="110" height="23" align="right" bgcolor="#f7f7f7">会议时间：</td>
+         		<td align="left">&nbsp;$re[ u'start'][0:10] <strong style='color:#00f'>--></strong> $re[u'deadline'][0:10]&nbsp;
+         		<span class="fgray2"></span>          </td>
+	       	</tr>
+	        <tr>
+	          	<td width="110" height="23" align="right" bgcolor="#f7f7f7">举办城市：</td>
+	          	<td align="left">&nbsp;<span>$re[u'city']</span></td>
+	        </tr>
+			<tr>
+	          	<td width="110" height="23" align="right" bgcolor="#f7f7f7">会议地点：</td>
+	          	<td align="left">&nbsp;<span>$re[u'addr']</span></td>
+	        </tr>
+	        <tr>
+	         		<td width="110" height="23" align="right" bgcolor="#f7f7f7">联系人：</td>
+	         		<td align="left">&nbsp;$re[u'linkman']          </td>
+	       	</tr>
+		  	<tr>
+	         		<td width="110" height="23" align="right" bgcolor="#f7f7f7">电话：</td>
+	         		<td align="left">&nbsp;$re[u'phone']         </td>
+	       	</tr>
+		</table>
+		<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+			<tr>
+	         		<td width="110" height="30" align="center" bgcolor="#c8e6fa"><strong><span class="bottomborder"><a name="aaa" id="aaa"></a></span>会议详细介绍</strong></td>
+	        </tr>
+			<tr>
+	   			<td height="100%" style="font-size: 12px;">$:re[u'content']</td>
+			</tr>
+		</table>			
+		<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0" class="martop marbottom">
+	       	<tr>
+	         		<td width="110" height="30" align="center" bgcolor="#c8e6fa"><strong><span class="bottomborder"><a name="aaa" id="aaa"></a></span>报名参加会议</strong></td>
+	         	</tr>
+	     </table>
+	$if  re[u'_id']: 
+		<table width="95%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#CCCCCC" bgcolor="#efefef" class="table_1px" >
+	       	<form id="form_submit" name="form_submit" method="post" action="/meeting" target="_self" >
+	        	<tr>
+	          		<td width="110" height="30" align="right">公 司：</td>
+	          		<td align="left" class="fred">
+	          			<span style="color:#666666; line-height:25px;">
+	            			<input name="p_name" type="text" id="company_name" value="" size="25" maxlength="50" />
+	          			</span>* 
+	          		</td>
+	        	</tr>
+		        <tr>
+		          <td width="110" height="30" align="right">联系人：</td>
+		          <td align="left" class="fred">
+		          	<span style="color:#666666; line-height:25px;">
+		            	<input name="p_linkman" type="text" id="company_linkman" value="" size="20" maxlength="20" />
+		          	</span>*
+		          </td>
+		        </tr>
+		        <tr>
+		        	<td width="110" height="30" align="right">手机：</td>
+		       		<td align="left" class="fred">
+		       			<span style="color:#666666; line-height:25px;">
+		            		<input name="p_mobile" type="text" id="company_mobile" style="ime-mode:disabled" onkeypress="return allow_keycode(event)" value="" size="20" maxlength="20" />
+		          		</span>
+		          		<span style="color:#666666; line-height:25px;">（手机、电话至少填一项）</span>
+		          	</td>
+		        </tr>
+		        <tr>
+		        	<td height="30" align="right">电话：</td>
+		          	<td align="left" class="fred">
+		          		<span style="color:#666666; line-height:25px;">
+		            		<input name="p_tel" type="text" id="company_tel" value="" size="20" maxlength="50" />
+		          		</span></td>
+		        </tr>
+		        <tr>
+		          <td height="30" align="right">传真：</td>
+		          <td align="left" class="fred"><span style="color:#666666; line-height:25px;">
+		            <input name="p_fax" type="text" id="company_fax" value="" size="20" maxlength="50" />
+		          </span></td>
+		        </tr>
+		        <tr>
+		          <td height="30" align="right">E-mail：</td>
+		          <td align="left" class="fred"><span style="color:#666666; line-height:25px;">
+		            <input name="p_email" type="text" id="company_email" value="" size="20" maxlength="50" />
+		          </span></td>
+		        </tr>
+				<tr>
+		          	<td height="30" align="right">性别：</td>
+		          	<td align="left" class="fred"><span style="color:#666666; line-height:25px;">
+			            <select name="p_sex" id="company_sex">
+			                <option value="男" >男</option>
+			                <option value="女" >女</option>
+			            </select>
+		         	</td>
+				</tr>
+		        <tr>
+		          	<td height="30" align="right">省市地：</td>
+		          	<td align="left" class="fred">
+		          		<span style="color:#666666; line-height:25px;">
+							<select name="p_province" id="company_province">
+			                    <option value="江苏省" >江苏省</option>
+			                    <option value="浙江省" >浙江省</option>
+			                    <option value="山东省" >山东省</option>
+			                    <option value="北京市" >北京市</option>
+			                    <option value="上海市" >上海市</option>
+			                    <option value="重庆市" >重庆市</option>
+			                    <option value="天津市" >天津市</option>
+			                    <option value="广西省" >广西省</option>
+			                    <option value="广东省" >广东省</option>
+			                    <option value="甘肃省" >甘肃省</option>
+			                    <option value="安徽省" >安徽省</option>
+			                    <option value="四川省" >四川省</option>
+			                    <option value="湖北省" >湖北省</option>
+			                    <option value="河南省" >河南省</option>
+			                    <option value="湖南省" >湖南省</option>
+			                    <option value="河北省" >河北省</option>
+			                    <option value="山西省" >山西省</option>
+			                    <option value="吉林省" >吉林省</option>
+			                    <option value="江西省" >江西省</option>
+			                    <option value="陕西省" >陕西省</option>
+			                    <option value="云南省" >云南省</option>
+			                    <option value="贵州省" >贵州省</option>
+			                    <option value="福建省" >福建省</option>
+			                    <option value="海南省" >海南省</option>
+			                    <option value="黑龙江" >黑龙江</option>
+			                    <option value="辽宁省" >辽宁省</option>
+			                    <option value="内蒙古" >内蒙古</option>
+			                    <option value="宁夏" >宁夏</option>
+			                    <option value="澳门" >澳门</option>
+			                    <option value="青海省" >青海省</option>
+			                    <option value="西藏" >西藏</option>
+			                    <option value="新疆" >新疆</option>
+			                    <option value="香港" >香港</option>
+			                    <option value="台湾" >台湾</option>
+								<option value="国外" >国外</option>
+							</select>
+							城市/地区
+							<input name="p_city" type="text" id="company_city" value="" size="10" maxlength="20" />
+		          		</span>
+		          	</td>
+		        </tr>
+		        <tr>
+		          <td height="30" align="right">地 址：</td>
+		          <td align="left" class="fred"><span style="color:#666666; line-height:25px;">
+		            <input name="p_addr" type="text" id="company_address" value="" size="30" maxlength="50" />
+		          </span></td>
+		        </tr>
+		        <tr>
+		          <td height="30" align="right">邮 编：</td>
+		          <td align="left" class="fred"><span style="color:#666666; line-height:25px;">
+		            <input name="p_zip" type="text" id="company_zip" style="ime-mode:disabled" onkeypress="return allow_keycode(event)" value="" size="20" maxlength="20" />
+		          </span></td>
+		        </tr>
+		        <tr>
+		          <td height="30" align="right">网 址：</td>
+		          <td align="left" class="fred"><span style="color:#666666; line-height:25px;">
+		            <input name="p_homepage" type="text" id="company_homepage" value="" size="30" maxlength="100" />
+		          </span></td>
+		        </tr>
+		        <tr>
+		          <td height="30" align="right">QQ：</td>
+		          <td align="left" class="fred"><span style="color:#666666; line-height:25px;">
+		            <input name="p_qq" type="text" id="company_qq" style="ime-mode:disabled" onkeypress="return allow_keycode(event)" value="" size="20" maxlength="20" />
+		          </span></td>
+		        </tr>
+		        <tr>
+		          <td height="30" align="right">职务：</td>
+		          <td align="left" class="fred"><span style="color:#666666; line-height:25px;">
+		            <input name="p_job" type="text" id="company_job" value="" size="30" maxlength="50" />
+		          </span></td>
+		        </tr>
+		        <tr>
+		          <td height="30" align="right">与会个人要求（详细）：</td>
+		          <td align="left"><textarea name="p_detail" cols="69" rows="10" id="detail" style="width:430px; height:80px"></textarea></td>
+		        </tr>
+				<tr>
+		          <td height="35" colspan="2" align="center"><input type="button" name="Submit_1" id="Submit_1" value="提交反馈" />
+		            &nbsp; 
+		            <input type="reset" name="button2" id="button2" value="重置" /></td>
+		            <input name="meetingID" type="hidden" id="info_id" value="$re[u'_id']" /></td>
+		        </tr>
+			</form><!-- </form> -->
+		</table>
+		<br/>
+		<br/>
+	</div>
+</div>

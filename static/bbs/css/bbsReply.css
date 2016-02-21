@@ -1,0 +1,35 @@
+*{margin:0px;padding:0px; }
+ul,li {list-style:none;}         
+a,a:hover{ text-decoration:none; cursor:pointer}
+img {border:none;}
+body{margin:0 auto; background:#F8FAFD} 
+
+.content{margin:0 auto; width:940px;}
+.TTitle{ height:40px; background:#006699; margin:10px 0;}
+.record{ border:1px #A9CBEE solid; margin:0 0 10px 0; overflow:hidden; background:#EFF4FB;}
+
+.left{ float:left; width:140px; padding-bottom:inherit;  overflow:hidden;}
+.pic{padding:10px 19px; }
+.pic img{width:100px; height:100px; border:1px solid #fff}
+.selfInfo{padding:0 19px;}
+
+.right{float:left; width:790px;}
+.top ,.bot{height:30px; line-height:30px; padding:0 6px;}
+.top ,.bot,.TContents{ border-left:1px #A9CBEE solid; }
+
+.top{  padding:0 6px;border-bottom:1px #A9CBEE solid;}
+.time{float:left}
+.floor{float:right}
+
+.TContents{ background:#fff;padding:10px 6px 80px 6px; border-right:1px #A9CBEE solid;}
+
+.bot{  border-top:1px #A9CBEE solid;}
+.replyCount{ float:left;}
+.TClickCount{float:right}
+.vote{ float:right;}
+.vote ul{ }
+.vote li{ display:block; float:left; cursor:pointer}
+
+
+
+

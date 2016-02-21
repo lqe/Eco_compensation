@@ -1,0 +1,77 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+/*第一步样式重置*/
+* {padding:0;margin:0;font-family:Arial; font-size:14px;}
+li {list-style:none;}
+img {border:none;}
+a,a:hover {text-decoration:none;}
+
+body {background:#FFF url(../images/blog_content_bg.jpg) repeat-x;}
+.top,.header,.content{ width:960px;margin:0 auto;}
+
+.top { height:30px;line-height:30px; color:#CCC;}
+.theme{float:left; font-family:"华文新魏";font-size:18px}
+.top li{float:right; padding-right:２px;}
+
+.header{height:150px; }
+.head_picture,.self_info{float:left;padding:35px 0;}
+.head_picture img{width:80px;height:80px;}
+
+.self_info{padding-left:10px;}
+.self_info h1{font-size:20px;}
+.self_info p{font-size:14px; color:#60C;}
+.self_info li{float:left; height:10px;margin-top:4px;}
+.self_info a{font-size:14px; color:#60C;}
+.self_info a:hover{color:#F0F; text-decoration:none;}
+
+.write_article{ float:right;width:58px;height:26px;margin:36px 10px;  padding:52px 0 0 20px;background:url(../images/write_article.png);border:1px solid #999; cursor:pointer; }
+.write_article span{}
+.weather{float:right;width:210px; height:80px;margin:35px 20px;border:1px solid  #999;}
+.weather_date{float:left;width:60px;padding:16px 0 20px 10px;cursor:pointer;}
+.weather_date p{height:18px; color:#9F0}
+.weather_date .region{ color:#000; padding-top:8px}
+.weather_temper{position:relative;float:left;height:80px;line-height:80px;}
+.temper{float:left;cursor:pointer;font-size:40px;color:#fff}
+.temper_ico{position:absolute; top:16px;right:-10px;width:10px;height:10px;background:url(../images/ico_wd.png)}
+.weather_ico{position:absolute;top:-20px;right:-180px;width:180px;height:480px; overflow:hidden;}
+
+.content{padding-top:10px; overflow:hidden;}
+.content_right{float:right;width:210px;border:1px solid #CCC;}
+.content_right li{height:50px; line-height:50px; cursor:pointer;padding-left:40px;background:#8DC45E;border-bottom:1px dotted #CCCCCC;}
+.content_right a{color:#000}
+.content_right a:hover{color:#999;}
+.content_left{float:left;width:700px;margin-right:6px; border:1px solid #CCC; overflow:hidden; padding:20px 20px;}
+
+.content_left .navigation { border-bottom:1px solid #CCC; }
+
+.content_left .aritles{border-bottom:1px solid #CCC; overflow:hidden;}
+.aritles{}
+.info_logo{float:left;width:40px;padding:10px}
+.info_logo img{width:40px;height:40px;}
+.ari{float:right;width:640px;overflow:hidden}
+.aritles .info{overflow:hidden;padding-top:6px;}
+.aritles .author{float:left; padding-top:6px;}
+.aritles .date{ float:right; }
+.aritles .title{padding-top:6px}
+.blog_content{ padding:10px 0;overflow:hidden;}
+.brief_content{ padding:10px 0;overflow:hidden;}
+
+.content_left .pagenoSkip{float:right;margin-top:14px; }
+.pagenoSkip a:hover{color:#39C}
+.footer{padding:10px 0; overflow:hidden;text-align:center;background:#000; color:#FFF;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

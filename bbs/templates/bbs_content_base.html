@@ -1,0 +1,92 @@
+$def with(content)
+<!DOCTYPE html>
+<html lang="ch" class='bbs_contentHTML'>
+  <head>
+    <meta charset="utf-8">
+    <title> $content.title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    </head>
+<body class="bbs_content">
+<!-- 第一行 平台模块连接-->
+    <ul class="nav nav-pills" style=" height:40px ; background:#EFF3FA; border-bottom:1px solid  #E7E7E7">
+       <li ><a href="/" target="_blank">平台首页</a></li>
+      <li><a href="/user_blog?name_id=$logged()" target="_blank">博客</a></li>
+      <li><a href="/wiki?name_id=$logged()" target="_blank">知识协同</a></li>
+       <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+             其它 <span class="caret"></span>
+          </a>
+         <ul class="dropdown-menu">
+             <li><a href="/meeting" target="_blank">会议管理</a></li>
+             <li><a href="/download/papers?content.name_id=$logged()" target='_blank'>资料下载</a></li>
+          </ul>
+       </li>
+       <li class="navbar-brand" href="#" style=' float:right; padding:4px 20px;' >
+              <img src="../../static/bbs/images/default.jpg" alt="logo图标" class="img-rounded" width=30px height=30px>
+             	 交流论坛
+       </li>
+    </ul>
+<!-- 第二行 BBS导航-->
+	<ul class="nav nav-pills" class='secondNav'>
+		<li ><a href="/bbs" target="_parent">互动首页</a></li>
+		<li class="dropdown">
+          	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+             精选板块 <span class="caret"></span>
+          	</a>
+			<ul class="dropdown-menu my-dropdown-menu" >
+					<table class="table" >
+                   	<tbody >
+                            $code:
+                                groups=getGroupFeated()
+                            $if groups:
+                                $for index in [ i for i in range(len(groups)) if i%2==0]:
+                                    <tr align="center">
+                                    <td>
+                                    <font color="#663399">$groups[index]['GName']</font>
+                                    <br>
+                                    $if groups[index]['GSection']:
+                                            $for SName in groups[index]['GSection']:
+                                                <a href="/bbs?htmlName=bbs_content&SName=$SName&page=1">$SName</a><br>
+                                    </td>
+                                    <td>
+                                    $if (index+1)!=len(groups):
+                                    	<font color="#663399">$groups[index+1]['GName']</font>
+                                    <br>
+                                    $if groups[index+1]['GSection']:
+                                            $for SName in groups[index+1]['GSection']:
+                                                <a href="/bbs?htmlName=bbs_content&SName=$SName&page=1">$SName</a><br>
+                                    </td>
+                                    </tr>
+                   	</tbody>
+				</table>
+          	</ul>
+       		</li>
+		<!-- <li><a href="#">论坛帮助</a></li>
+       	<li><a href="#">论坛地图</a></li> -->
+       <!--  	<li><a href="#">专家问答</a></li> -->
+    </ul >
+	<div style='float:right; position:relative; background:#000' >
+        <img class="img-circle"  usemap="#map1" src="../../static/bbs/images/Posted.png" style="width:120px; height:120px; position:absolute; bottom:-18px;right:-59px;" />
+        <map name="map1" id="map1">
+        	<area shape='poligon' coords="0,60,60,60,60,120,12,108,0,60" href="/bbs/posted" target="_blank"/>
+        </map>
+	</div> 
+	$:content
+</body>
+</html>
+
+    <link href="../../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/colorbox/example1/colorbox.css">
+    <link rel="stylesheet" href="../../static/bbs/css/bbs_base.css" >  
+    $if content.cssName:
+		<link rel="stylesheet" href="../../static/bbs/css/$content.cssName" >    
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+	<script src="../../static/jquery/jquery-1.11.0.min.js"></script>
+	<script src="../../static/bootstrap/js/bootstrap.min.js"></script>
+    $if content.jsName:
+		<script type="text/javascript" src="../../static/bbs/javascript/$content.jsName"></script>

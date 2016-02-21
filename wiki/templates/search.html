@@ -1,0 +1,43 @@
+$def with(results)
+
+<!-- 网页标题 -->
+$var title : 搜索结果 
+<div class="container" style="margin:60px 0 10px 0;">
+	共有$len(results)记录
+	<table class="table table-striped">
+			<tr>
+				<th>标题</th>
+		    	<th>位置</th>
+		    	<th>最后修改时间</th>
+		  	</tr>
+			$if len(results):
+				$for ch in results:
+				    <tr>
+				      <td>
+				        <a href="/wiki?postion=$ch['postion']"> $ch['title'] </a> 
+				      </td>
+				      <td>
+				         $ch['postion'] 
+				      </td>
+				      <td>
+				        $ch['date']
+				      </td>
+				    </tr>
+			$else:   
+				<tr>
+			      <td colspan="100">
+			        <em>没有匹配到相关的词条记录</em>
+			      </td>
+			    </tr>
+		</table>
+</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

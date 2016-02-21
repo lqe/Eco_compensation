@@ -1,0 +1,99 @@
+$def with(postion,article={})
+ <!-- 网页标题 -->
+$var title : 创建词条
+
+$code:
+	if not article:
+		for i in ['title','postion','content','reason']:
+			article[i]=''
+
+
+ <!--图标定义样式-->
+        <link rel="stylesheet" type="text/css" href="../static/ECBM/css/icons.css" />
+        <!--extjs自带样式-->
+        <link rel="stylesheet" type="text/css" href="../static/ECBM/extjs/resources/css/ext-all.css" />
+       
+	
+<div class="container" style="margin:30px 0 10px 0;">
+	<div class="page-header">
+	   <h1>创建新词条</h1>
+	</div>
+	<form method="POST" class="form-horizontal" id='create-form' action='/wiki/create'>
+		<div class="form-group">
+			<label class="control-label">标题</label>
+			<input type="text" class="form-control input-lg " name='title' id='title'  placeholder="请输入名称" value="$article['title']">
+			<span class="help-block asteriskField">必填</span>
+      	</div>
+      	<div class="form-group">
+			<label for="name">位置</label>
+			<div class="input-group ">
+				<span class="input-group-addon input-lg" >$postion/</span>
+			$if article[u'postion']:
+				<input name="_postion" type="hidden" value='$postion'/>
+			  	<input class='input-lg ' name="postion" type="hidden">
+			  	<span class="asteriskField" >*</span>
+			$else:
+				<input name="_postion"  id='_postion' type="hidden" value='$postion/'/>
+			  	<input class='input-lg' id='postion'  name="postion" type="text">
+			</div> 
+			$if article[u'postion']:
+				<span class="help-block asteriskField">词条的位置储存 不能改变</span>
+			$else:
+				<span class="help-block asteriskField">必须要填的，给你的词条一个位置储存</span>
+		</div>
+	<!-- 富文本编辑器 -->
+	<hr/>
+	<label for="name">内容</label>
+	<div id='HtmlBlog' style='display:none'>$article['content']</div>
+	 <div class="textarea_id" id="textarea_id" ></div>
+	 <hr/>
+  <!--富文本end -->
+		<div class="form-group">
+    		<label for="name">创建原因</label>
+    		<textarea name='reason' class="form-control" id='reason' rows="3" >$article['reason']</textarea>
+  		</div>
+	 	<div class="form-group form-actions">
+	        <a href='/wiki?postion=$postion' class="btn btn-default btn-large">
+	          <span class="glyphicon glyphicon-circle-arrow-left"></span>
+	        	  取消
+	        </a>
+	        <button type="button"  class="btn btn-primary btn-large" id="create">
+	          <span class="glyphicon glyphicon-plus"></span>
+				$if not article['title']:
+					 创建词条
+	         	$else:
+	         		<input type='hidden' name='act' value='edit'/>
+	         		<input type='hidden' name='_id' value="$article['_id']"/>
+	         		保存词条
+	        </button>
+    	</div> 
+	</form>
+	
+</div>
+<!-- Main page contents go here -->
+ <script type="text/javascript"	src="../static/ECBM/extjs/bootstrap.js"></script>
+        <script type="text/javascript" src="../static/ECBM/extjs/ext-lang-zh_CN.js"></script>	
+        <!--自定义js-->
+        <script type="text/javascript" src="../static/ECBM/app/view/ul/MyHtmleditor.js"></script>	
+<script type="text/javascript">
+Ext.onReady(
+function(){
+	new ECBM.view.ul.MyHtmlEditor({
+		renderTo:Ext.get("textarea_id"),
+		url:'/upload',
+		width:800,
+		height:300
+		});
+	//加载
+	content=Ext.fly("HtmlBlog").dom.innerHTML;
+	if (!content) return;
+	Ext.select('[name]').each(function(el,index,myself){
+		dom=el.dom
+		switch(dom.name){
+			case 'content':
+				dom.innerHTML=content
+				break;
+		}
+	});
+})
+</script>

@@ -1,0 +1,78 @@
+$def with(article,newMeetting,typeCase)
+
+$var title:中国生态补偿与绿色发展
+$var cssfiles: index.css
+$var jsfiles: common.js 
+
+<div class='picture'>
+   	<img src="../static/images/picture1.jpg"/>
+       <div class="skip">
+       	<span>　1　</span>
+       	<span>　2　</span>
+        <span>　3　</span>
+       </div>
+ </div>
+ <div class='left'>
+     <div class='meeting_dynamic'>
+     <div class='meeting_title'>最新会议<span  class='more'><a href="/meeting"> 更多>></a></span></div>
+        <table cellspacing=0 cellpadding=0 >
+            $for i in range(len(newMeetting)):
+                <tr>
+                    <td class='spac'> </td>
+                    <td class='ttext'>
+                        <a href="/meeting?_id=$newMeetting[0]['_id']" target="_blank">$newMeetting[i]['title'][:13]...</a>
+                    </td>
+                    <td id="ttime">$newMeetting[i]['start'][:10]</td>
+                </tr>
+        </table>
+     </div>
+     <div class='typical_case'>
+     	<div class='case_title' >新型案例<span  class='more'><a href="/download/papers"> 更多>></a></span></div>
+        <table cellspacing=0 cellpadding=0 >
+            $for i in range(len(typeCase)):
+                <tr>
+                    <td class='spac'> </td>
+                    <td class='ttext'>
+                        <a href="/download/papers" target="_blank">$typeCase[i]['title'][:13]...</a>
+                    </td>
+                    <td id="ttime">$typeCase[i]['date'][:10]</td>
+                </tr>
+        </table>
+     </div>
+</div>
+<div class='center'>
+    <div class='news_title'>
+        热点关注<span  class='more'><a href="/?category=policies"> 更多>></a></span>
+    </div>
+	<div class='recent_news'>
+        <div class="recent_newsul" id='recent_newsul'>
+            <ul>
+                $for i in range(len(article)):
+                    <li>
+                            <div class="right_title">
+                            <a  href='/?_id=$article[i]["_id"]'>
+                                $article[i]['title'][:13]...
+                                </a>
+                        </div>
+                        <font class="right_time">$article[i]['date']</font>
+                        <div class='_id' style="display:none">$article[i]['_id']</div>
+                        </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class='right'>
+<div class='right_title'>
+	论坛焦点<span  class='more'><a href="/bbs"> 更多>></a></span>
+</div>
+<div id='right'> 
+</div>
+</div>
+<!--  <div class='Co_website'>
+合作网站
+</div>
+-->
+<link rel="stylesheet" type="text/css" href="../static/ECBM/extjs/resources/css/ext-all.css" />
+<script type="text/javascript"	src="../static/ECBM/extjs/bootstrap.js"></script>
+<script type="text/javascript"  src="../static/ECBM/extjs/ext-lang-zh_CN.js"></script>
+<script type="text/javascript"  src="../static/javascript/index.js"></script>

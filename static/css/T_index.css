@@ -1,0 +1,54 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+/*第一步样式重置*/
+body,ul,img{ margin:0; padding:0;}
+li{ list-style:none;}
+a,a:hover{ text-decoration:none;}
+img{border:0}
+
+body { background:#fff url(../images/index_body_bg.jpg) repeat-x ;}
+.top,.header,.banner,.content,.footer{width:1006px; margin:0 auto;}
+
+.top{height:28px;background:#0D7B02 url(../images/index_top_bg.gif) repeat-x;}
+.top p{float:right;margin:6px 20px 4px 0;font-size:14px;color:#FFF;  }
+.top a{color:#FFF}
+.top a:hover{color:#999; border:none;}
+.top a:visited{border:none;}
+
+.header{height:100px;background: url(../images/index_header_bg.png) repeat-x;}
+.logo{float:left;}
+.logo img{height:60px; width:357px; padding:20px 0 0 20px}
+
+.banner{ width:944px; height:32px; margin:0 auto; background:#016701; padding:0 31px; }
+.banner li{ width:118px; line-height:32px; height:32px;float:left; text-align: center;}
+.banner a{display:block;width:118px;height:32px;font-size:18px; color:#FFF;}
+.banner a:hover{ text-decoration:none;background:#147e08; background:#fff; color:#000}
+
+.content{overflow:hidden;margin:0 auto;padding: 10px 0;}
+
+
+
+.footer{  height:68px;background:#F3F3F3 ; margin:0 auto; padding-top:20px;}
+.footer td{  font-size:12px; width:900px; text-align:center;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

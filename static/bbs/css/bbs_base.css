@@ -1,0 +1,12 @@
+*{margin:0px;padding:0px; }
+ul,li {list-style:none;}         
+a,a:hover{ text-decoration:none; cursor:pointer}
+img {border:none;}
+body{margin:0 auto; background:#F8FAFD} 
+
+.bbs_contentHTML{}
+.bbs_content{}
+.bbs_content .secondNav{ }
+.my-dropdown-menu{ width:400px;}
+
+

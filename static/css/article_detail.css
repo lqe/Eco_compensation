@@ -1,0 +1,9 @@
+@charset "utf-8";
+/* CSS Document */
+
+.right .title,.time,.article{ margin:0 18px 10px 18px;widt:604px; }
+.right .title{height:80px; border-bottom:#000 1px solid;}
+.title p{ text-align:center;height:80px;line-height:80px; margin:0 auto; font-size:1.47em;font-weight:bold; font-family:'楷体';}
+.right .time{margin:0 18px 0 18px;}
+.time p{ font-size:14px;text-align:center;font-family:'楷体'; margin:0 auto; padding-bottom:4px;}
+

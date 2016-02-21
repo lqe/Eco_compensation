@@ -1,0 +1,108 @@
+$def with(articles,childrens,pos=[('root','root')])
+
+<!-- 网页标题 -->
+$var title : $articles[0]['title'] 
+
+<div class="container" style="margin:60px 0 10px 0;">
+		<div id="article-breadcrumbs">
+			<ul class="breadcrumb pull-left">
+			    <li class="active">词条级别 </li>
+			    $for i in pos:
+			    	<li><a href="/wiki?postion=$i[0]">$i[1]</a></li>
+			</ul>
+			<div class="pull-left" style="margin-left: 10px;">
+			  <div class="btn-group">
+			    <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#" style="padding: 7px;" title="">
+			      <span class="glyphicon glyphicon-list-alt"></span>
+			      <span class="caret"></span>
+			    </a>
+			    <ul class="dropdown-menu">
+			    	$if childrens:
+			    		$for index,children in  enumerate(childrens):
+			    			$if index > 7:
+			    				<li><a href="#"><em>...and more"</em></a></li>
+			    				break;
+				    		<li><a href="/wiki?postion=$children['postion']">$children['title']</a></li>
+			        $else:
+			        	<li><a href="#"><em>没有子词条" </em></a></li>
+			      	<li class="divider"></li>
+			      	<li><a href="/wiki/catalog?postion=$articles[0]['postion']">同一级的词条 &raquo;</a></li>
+			    </ul>
+			  </div>
+			</div>
+			<div class="pull-left" style="margin-left: 10px;">
+			  <div class="btn-group">
+			    <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#" style="padding: 7px;" title="Sub-articles for">
+			      <span class="glyphicon glyphicon-file"></span>
+			      <span class="caret"></span>
+			    </a>    
+			    <ul class="dropdown-menu">
+			      <li>
+			      	$if articles[0]['postion']!='root':
+			      		$code:
+			      			index=articles[0]['postion'].rfind('/')
+			      			postion=articles[0]['postion'][:index]
+				        <a href="/wiki/create?postion=$postion" style="padding: 7px;">
+				        	<span class="glyphicon glyphicon-arrow-right"></span>
+							创建同级词条
+				        </a>
+			        <a href="/wiki/create?postion=$articles[0]['postion']" style="padding: 7px;">
+			          <span class="glyphicon glyphicon-arrow-down"></span>
+						创建下级词条
+			        </a>
+			      </li>
+			    </ul>
+			  </div>
+			</div>
+			<div style="clear: both"></div>
+		</div>
+		$code:
+			if articles[0]['postion']=='root':
+				disable = "btn btn-link  disabled "
+			else:
+				disable="btn btn-link"
+		<ul class="nav nav-pills" id="article-menu">
+			<li class="pull-right">
+				<button type="button" class=$:disable style='background:#fff'>
+			  		<a href="/wiki/history?postion=$articles[0]['postion']" >
+			    		<span class="glyphicon glyphicon-time"></span> 历史记录
+			  		</a>
+			  	</button>
+			</li>
+			<li class="pull-right">
+				<button type="button" class=$disable style='background:#fff' >
+			  		<a href="/wiki/edit?_id=$articles[0]['_id']" >
+			  				<span class="glyphicon glyphicon-edit" ></span> 编辑
+			  		</a>
+			  	</button>
+			</li>
+			<li class="pull-right ">
+				<button type="button" class="btn btn-primary">
+			  		<a href="#" style='color:#fff' >
+			    		<span class="glyphicon glyphicon-home"></span> 视图
+			  		</a>
+			  	</button>
+			</li>
+			<li class="pull-left  ">
+				<h1 id="article-title">$articles[0]['title']/
+				$if articles[0]['postion']=='root':
+	          		<small style="font-size: 14px;">
+		            	<span class="glyphicon glyphicon-lock"></span> locked
+		            </small>
+        		</h1>
+			</li>
+		</ul>
+	</div>
+	<!-- Main page contents go here -->
+	<div class='content' style='padding:10px 30px'>
+		$:articles[0]['content']
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	

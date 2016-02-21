@@ -1,0 +1,51 @@
+$def with(maxScore)
+
+$var  title : 发帖
+$var  jsName: bbsPosted.js
+$var  cssName: bbsPosted.css
+
+
+   <div class='content'>
+    	<div class='content1'>
+       	 发贴
+        </div>
+       <form action='/bbs/posted' method='post' class='form' id="formId">
+            <div class='content2'>
+           	 标题:<input type="text" name="TTitle" style="width:410px"/>
+            <input type="text" name="TTime"  value="" readonly="true" style="width:200px; padding-left:10px "/>
+            <input type="button" value="当前时间" style="height:24px"/>
+            </div>
+            <div class='content3'>
+                <div class="textarea_id" id="textarea_id" style="" ></div>
+            </div>
+            <div class='content4'>
+            	<div class='classification'  id='classification'></div>
+            	<font class='tip'>多个标签请用 空格分开
+            	</font>
+            </div>
+            <div class='content5'>
+            	<div class='Group' id='Group'></div><div class='Section' id='Section'></div>
+            </div>
+            <div class='content5'>
+            	<div class='score' id='score'></div>
+            	<div class='maxScoreValue' >您还有<font id='maxScoreValue' >$maxScore</font>分</div>
+            </div>
+                <div class='divBtn'>
+                    <input id='btn' class='btn' type="button" value="发布帖子"  />
+                </div>
+            <div class='content7'>
+            	1.这里发言，表示您接受了本论坛的用户行为准则。<br />
+				2.请对您的言行负责，并遵守中华人民共和国有关法律法规,尊重网上道德。<br />
+				3.转载文章请注明出自出处。如是商业用途请联系原作者。<br />
+            </div>
+            <input type="text" value="$logged()" name='TUid' ,style="display:none" />
+         </form> 
+    </div>
+    
+    <!--自定义CSS样式-->
+        <!--图标定义样式-->
+        <link rel="stylesheet" type="text/css" href="../static/ECBM/css/icons.css" />
+        <link rel="stylesheet" type="text/css" href="../static/ECBM/extjs/resources/css/ext-all.css" />
+        <script type="text/javascript"	src="../static/ECBM/extjs/bootstrap.js"></script>
+        <script type="text/javascript" src="../static/ECBM/extjs/ext-lang-zh_CN.js"></script>	
+        <script type="text/javascript" src="../static/ECBM/app/view/ul/MyHtmleditor.js"></script>

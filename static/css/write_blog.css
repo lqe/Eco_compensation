@@ -1,0 +1,20 @@
+﻿@charset "utf-8";
+/* CSS Document */
+*{ margin:0px;
+  padding:0px;}
+body{background: #DDEEF8; background:url(../images/write_blog_bg.jpg) }
+
+.top{ width:960px; height:30px; padding-bottom:20px; font-size:14px; }
+.top li{ float:right; padding:4px 4px; cursor:pointer; color:#33F;}
+.top .line{ cursor:default; color:#999}
+
+.content,.content1,.content2,.content3,.content4{margin:0 auto;width:960px;overflow:hidden;}
+.content{border:1px solid #CCC ;background:#DDEEF8;}
+.content1{ height：15px; padding:5px 0 6px 8px; border-bottom:2px dashed #CCCCCC}
+.content2{ height:25px;padding:14px 0 15px 50px;  }
+.content3{padding:0 50px}
+.textarea_id{ width:860px;overflow:hidden;border:1px solid #CCC}
+.content4{ float:left;width:160px; padding:10px 0 0 50px;}
+.classification{float:right}
+.divBtn{margin:0 auto;width:60px;height:30px;padding-top:10px;}
+.btn{ width:100px; height:30px; font-size:16px; color:#609; cursor:pointer}

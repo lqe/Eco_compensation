@@ -1,0 +1,73 @@
+$def with(groups=[])
+<!DOCTYPE html>
+<html lang="ch">
+  <head>
+    <meta charset="utf-8">
+    <title> BBS导航</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <link href="../../static/jquery_treeview/jquery.treeview.css" rel="stylesheet">
+	<link rel="stylesheet" href="../../static/bbs/css/bbs.css" >   
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+	<script src="../../static/jquery_treeview/lib/jquery.js"></script>
+    <script src="../../static/jquery_treeview/lib/jquery.cookie.js"></script>
+    <script src="../../static/jquery_treeview/jquery.treeview.js"></script>
+	<script type="text/javascript" src="../../static/bbs/javascript/bbs.js"></script>
+    </head>
+<body class="bbs_banner">
+<div class='self_info'>
+	$if logged():
+	    	<div class='pic'>
+	        	<div class='tip'>
+	            	个人资料
+	            </div>
+	            <img src="../../static/bbs/images/default.jpg" />
+	        </div>
+	        <div class='loginOrregister'>
+	        	<div class='role'>
+	            	$logged()
+	            </div>
+	            <div class="login" id="logout">
+	                	注销
+				</div>
+			</div>
+	$else:
+			<div class='pic'>
+	        	<div class='tip'>
+	            	个人资料
+	            </div>
+	            <img src="../../static/bbs/images/default.jpg" />
+			</div>
+	        <div class='loginOrregister'>
+	            <div class='role'>
+	                guest
+	            </div>
+	            <div class="login" id='login' >
+	                	登陆
+	            </div>
+	            <div class='register' id='register' >
+	                	注册
+	            </div>
+			</div>
+</div>
+<div class='search_table'>
+<input type="text" name='seacher' >
+</div>
+<div class='bannerTree'>
+    <ul id="browser" class="filetree">
+    	<span class='file' style="color:#F00">交流互动首页</span>
+        $for group in groups:
+            <li><span class="folder">$group['GName']</span>
+                <ul>
+                	$for SName in group['GSection']
+                        <li><span class='file'>$SName</span></li>
+                </ul>
+            </li>
+    </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,123 @@
+$def with(name_id,classification,blogs,skip,limit,total)
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>博文内容管理</title>
+<!-- 自定义css -->
+<link rel="stylesheet" href="../static/css/blog_content_manage.css" />
+<!-- jquery -->
+<script src="../static/jquery/jquery-1.6.2.min.js"></script>
+<!-- 自定义js -->
+<script type="text/javascript" src="../static/javascript/blog_content_manage.js"></script>
+<script type="text/javascript" src="../static/javascript/common.js"></script>
+</head>
+
+<body>
+<div class="top">
+	<div class="blognav" >
+    	<div class="blogtoparea">
+        	<a href="">$name_id的博客</a>
+           	<a class="edit" onclick="return false;" href="javscript:;">[<cite>编辑</cite>]</a>
+      	</div>
+        <div class="blognavInfo"> 
+          <span><a href="#">首页</a></span>
+          <span><a href="/blog_content_manage?name_id=$name_id">博文目录</a></span>
+          <span><a href="#">图片</a></span>
+          <span class="last"><a href="#">关于我</a></span>
+      </div>
+    </div>
+</div>
+<div class='banner'>
+	<input type="button"  onclick="window.location.href='/user_blog?name_id=$name_id'" value="个人中心" />
+    <input type="button"  onclick="window.location.href='/write_blog?name_id=$name_id'" value="发博文" />
+</div>
+<div class='content'>
+	<div class='content_left'>
+        <div class="left1">
+        	<div class="left1_title">
+          		  博文
+            </div>
+            <div class="left1_content">
+            	<ul>
+            		<li>.全部博文（$len(blogs)）</li>
+	            	$if len(classification):
+	            		$for key in classification:
+	                		<li>.<a href="/blog_content_manage?name_id=$name_id&&classification=$key" style="color:#26887C">$key </a>($classification[key])</li>
+                </ul>
+            </div>
+        </div>
+        <div class="left2">
+       		<div class="left2_title">
+            	博文搜素
+            </div>
+            <div class="left2_content">
+             	搜索 <input style="width:110px";type="text" name='text' value=""/>
+             	<input  style="cursor:pointer" type='button' value="GO"/>
+            </div>
+        </div>
+    </div>
+    <div class='content_right'>
+   		 	<div class="right1_title">
+            全部博文
+            </div>
+            <div class="right1_content">
+            	<ul>
+            		$if len(blogs):
+            			$for blog in blogs:
+		                	<li>
+		                		<div class="right1_content_title">
+		                			<a  href='/blog_single_self?_id=$blog["_id"]'>
+			                    		$blog[u'title'][0:25]
+			                    		$if len(blog[u'title'])>20:...
+			                    	</a>
+			                    </div>
+		                        <div class="right1_content_CRUD">
+		                        	<span>[<cite>编辑</cite>]</span>
+		                            <span>[<cite>删除</cite>]</span>
+		                        </div>
+		                        <div class="right1_content_time">$blog[u'date'][0:16]</div>
+		                        <div class='_id' style="display:none">$blog[u'_id']</div>
+		                    </li>
+                </ul>
+            </div>
+            <div class='pagenoSkip' style="float:right;padding:4px 10px 4px 0">
+	        	<span>
+		        	$code:
+		        		current=skip/limit+1
+		        		if total%limit==0:
+		        			size=total/limit
+		        		else:
+		        			size=total/limit+1
+	        	
+	        		共$total条记录&nbsp;&nbsp;当前第$current/$size页&nbsp;
+	        	    <a href="/blog_content_manage?name_id=$name_id">首页</a>
+	        	    $if current==1:
+	        	    	上一页
+	        	    $else:
+	        	    	$code:
+	        	    		skip=(current-2)*limit
+	        	    	<a href="/blog_content_manage?name_id=$name_id&&skip=$skip">上一页</a>
+	         	    $if current==size:
+	        	    	下一页
+	        	    $else:
+	        	    	$code:
+	        	    		skip=limit*current
+	        	    	<a href="/blog_content_manage?name_id=$name_id&&skip=$skip">下一页</a>
+	        	    $code:
+	        	    	if total%limit==0:
+	        	    		skip=limit*(total/limit - 1)
+	        	    	else:
+	        	    		skip=limit*(total/limit)
+	        	    <a href="/blog_content_manage?name_id=$name_id&&skip=$skip">尾页</a> 
+	         		转到第<input id='pageno' name="pageno" type="text"  size=3  maxlength=3/>页&nbsp;
+	        		<input id='but' type="button" value="转向"/>
+	        	</span>	
+	        	<p id="vars" style="display:none;">$limit,$size</p>
+	        	<p id="url" style="display:none;">/blog_content_manage?name_id=$name_id,limit=$limit</p>
+	       </div>
+    </div>
+</div>
+<div class="footer">本网站版权为中国农业大学所有<br /><span id="sysmsg"></span></div>
+</body>
+</html>

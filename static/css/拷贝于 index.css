@@ -1,0 +1,39 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*第一步样式重置*/
+
+
+
+.content{overflow:hidden;margin:0 auto;padding: 10px 0;}
+.content .picture{ position:relative;border:1px solid;width:1004px;height:220px; margin-bottom:10px; overflow:hidden;}
+.content img{width:1004px;height:220px;}
+.content .skip{ position:absolute;bottom:0px;right:0px}
+.content .skip span{background:#999; width:30px; height:30px; cursor:pointer;}
+
+.content .left{ float:left; overflow:hidden;}
+.BBS_interaction,.latest_data,.meeting_dynamic{width:200px; height:60px; margin-bottom:10px; border:1px solid;}
+.BBS_interaction{ background:#339;}
+.latest_data{ background:#36C;}
+.meeting_dynamic{ background:#66F;}
+
+
+.content .right{ float:right; overflow:hidden;}
+.hot_news,{ border:1px solid;width:688px; margin-bottom:10px;overflow:hidden}
+
+.right ul{line-height:2em; font-weight:100;}
+.right li{overflow:hidden; padding: 0 10px;background:url(../images/SG_linedot.gif) bottom repeat-x;}
+.right .right_title{ float:left;padding-left:8px; background:url(../images/SG_dot.gif) left no-repeat;}
+.right .right_title a{color:#26887C}
+.right .right_title a:hover{color:#0000EE}
+.right .right_time{float:right; font-size:14px; font-style:italic; color:#999;}
+
+.hot_news{height:340px;}
+.recent_news{ border:1px solid;float:left;position:relative; height:340px; width:420px; overflow:hidden}
+.recent_newsul{position: absolute;width:420px; overflow:hidden}
+
+
+
+.Co_website{border:1px solid; clear: both; height:140px;width:1004px; margin:0 auto;}
+.footer{  height:68px;background:#FFF ; margin:0 auto; padding-top:20px;}
+.footer td{  font-size:12px; width:900px; text-align:center;}

@@ -1,0 +1,21 @@
+@charset "utf-8";
+/* CSS Document */
+
+.content .left{ float:left; overflow:hidden; width:200px; height:500px; border:1px solid #300}
+#.BBS_interaction,.latest_data,.meeting_dynamic{width:200px; height:60px; margin-bottom:10px; border:1px solid;}
+#.BBS_interaction{ background:#339;}
+#.latest_data{ background:#36C;}
+#.meeting_dynamic{ background:#66F;}
+
+
+.right{float:right; width:720px; padding:0 40px 0 0; }
+.right .postion{ font-size:12px; height:30px; padding: 0 10px;}
+.postion a,.postion a:hover{ color:#0000ff;text-decoration: underline;}
+.recent_newsul{overflow:hidden}
+
+.right ul{line-height:2em; font-weight:100;}
+.right li{overflow:hidden; padding: 0 10px;background:url(../images/SG_linedot.gif) bottom repeat-x;}
+.right .right_title{ float:left;padding-left:8px; background:url(../images/SG_dot.gif) left no-repeat;}
+.right .right_title a{color:#26887C}
+.right .right_title a:hover{color:#0000EE}
+.right .right_time{float:right; font-size:14px; font-style:italic; color:#999;}

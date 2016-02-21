@@ -1,0 +1,46 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*第一步样式重置*/
+.content{overflow:hidden;margin:0 auto;padding: 10px 0;}
+.content .picture{ position:relative;border:1px solid;width:1004px;height:220px; margin-bottom:10px; overflow:hidden;}
+.content img{width:1004px;height:220px;}
+.content .skip{ position:absolute;bottom:0px;right:0px}
+.content .skip span{background:#999; width:30px; height:30px; cursor:pointer;}
+
+
+.content .left{ float:left; overflow:hidden; padding-right:20px;}
+.meeting_title ,.news_title,.case_title,.right_title{ border-bottom:1px solid #000;padding-bottom:4px;}
+span.more{float:right; cursor: pointer; }
+span.more a:hover{color:#000}
+span.more a{color:#000;font-size:12px;}
+
+.meeting_dynamic{ padding-bottom:10px;}
+.meeting_title{ }
+
+.typical_case { padding-bottom:10px;}
+.case_title{  }
+
+.left table{width:284px; table-layout:fixed;background:url(../images/mod_bg.jpg) no-repeat; }
+.left tr{height:24px;}
+.left .spac{ width:20px;}
+.left .ttext{width:200px;overflow:hidden; white-space:nowrap;text-overflow:ellipsis;}
+.left .ttime{font-size:14px; text-align:center;}
+.left a{ font-size:14px;}
+.left a:hover{ color:#F0F;}
+
+.center{ float:left; overflow:hidden; padding:0 10px;}
+.center .news_title{}
+.center .recent_news{position:relative; margin:10px;height:268px; width:310px; overflow:hidden}
+
+.recent_newsul{position: absolute;width:310px; height:overflow:hidden}
+.recent_newsul ul{ font-size:14px;}
+.recent_newsul li{overflow:hidden; height:24px; line-height:24px;background:url(../images/SG_linedot.gif) bottom repeat-x;}
+.recent_newsul .right_title{ float:left; padding-left:8px;background:url(../images/SG_dot.gif) left no-repeat;}
+.recent_newsul  a{color:#26887C}
+.recent_newsul  a:hover{color:#0000EE}
+.recent_newsul .right_time{float:right; font-size:14px; font-style:italic; color:#999;}
+
+.right{ float:right; width:280px; height:280px;  padding:0px 30px;overflow:hidden;}
+
+.Co_website{border:1px solid; clear: both; height:140px;width:1004px; margin:0 auto;}

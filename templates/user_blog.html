@@ -1,0 +1,145 @@
+$def with(name_id,person_info,blogs,skip,limit,total)
+<!-- blogs[]中必须还有的字段'author''date''title''brief_content''content' 其中'brief_content'不在数据库中，在code中GetHtmlValue中生成的-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>个人博客</title>
+<!-- 自定义css -->
+<link href="../static/css/user_blog.css" type="text/css" rel="stylesheet" />
+<!-- jquery -->
+<script src="../static/jquery/jquery-1.6.2.min.js"></script>
+<!-- 自定义js -->
+<script type="text/javascript" src="../static/javascript/user_blog.js"></script>
+<script type="text/javascript" src="../static/javascript/common.js"></script>
+<!-- 天气插件 -->
+<script src="http://lab.wangyuanwai.com/weather/v3/jquery.weather.build.min.js?parentbox=.header&moveArea=limit&zIndex=1&move=1&drag=1&autoDrop=1&styleSize=big&style=default&time=1407570292&area=assign&city=%E5%8C%97%E4%BA%AC"></script>
+</head>
+<body>
+<!--top顶部-->
+<div class="top">
+	<div class='theme'>生态补偿与绿色发展知识共享平台</div>
+    <ul >
+    	<li onclick="window.location.href='/reset/$name_id'"  style="cursor:pointer">退出</li>
+    	<li>　</li>
+        <li style="cursor:pointer"><a href="/"><span style="color:#fff">平台首页</span></a></li>
+    </ul>
+</div>
+<!--header头部-->
+<div class="header">
+    <div class='head_picture'><img src="../static/images/head_picture.jpg" alt='图片' title="头像" /></div>
+    <div class='self_info'>
+    	<h1>$name_id的博客</h1>
+        <p>工作部门:　<font style='font-size: 14px; font-style: italic;'>$person_info['department']</font></p>
+        <p>博客积分:　<font style='font-size: 14px; font-style: italic;'>$person_info['credit']</font></p>
+        <ul>
+            <li><a href="#">我的博客</a>　</li>
+            <li><a href="/blog_content_manage?name_id=$name_id">博文目录</a>　</li>
+            <li><a href="#">关于我</a></li>
+        </ul>
+    </div>
+    <div class='weather'>
+    	<div class='weather_date'>
+            <p></p>
+            <p></p>
+            <p class='region'>北京海淀</p>
+        </div>
+        <div class='weather_temper'>
+            <div class='weather_ico'>
+            </div>
+            <p  class="temper">30</p>
+            <span class="temper_ico"></span>
+        </div>
+    </div>
+    <div class='write_article'>
+    	<span>发博文</span>
+    </div>
+</div>
+<!--选项列表-->
+<div class='content'>
+	<div class='content_left'>
+    	<div class='navigation'>
+        	最新博文
+        </div>    	
+        $if len(blogs)!=0:
+        	 $for blog in blogs:
+					<div class='aritles'>
+						<div class='info_logo'><img src="../static/images/head_picture.jpg" /></div>
+						<div class='ari'>
+							<div class='info'>
+						     	<div class='author'>作者:$blog[u'author']</div>
+						    	<div class='date'>$blog[u'date'][:10]</div>
+							</div>
+							<div class='title'>
+								标题：<a href="/blog_single_other?visitors=$name_id&&article_author=$blog[u'author']&&article_id=$blog[u'_id']" target='_blank' >$blog[u'title'][:80]</a>
+							</div>
+						    <div class='brief_content'>
+						     　 	 &nbsp; &nbsp;$:blog[u'brief_content']
+						    </div>
+						    <div class='blog_content' style="display:none">
+						     　 	 &nbsp; &nbsp;$:blog[u'content']
+						    </div>
+						 </div>
+					</div>
+		<div class='pagenoSkip'>
+        	<span>
+	        	$code:
+	        		current=skip/limit+1
+	        		if total%limit==0:
+	        			size=total/limit
+	        		else:
+	        			size=total/limit+1
+        	
+        		共$total条记录&nbsp;&nbsp;当前第$current/$size页&nbsp;
+        	    <a href="/user_blog?name_id=$name_id">首页</a>
+        	    $if current==1:
+        	    	上一页
+        	    $else:
+        	    	$code:
+        	    		skip=(current-2)*limit
+        	    	<a href="/user_blog?name_id=$name_id&&skip=$skip">上一页</a>
+         	    $if current==size:
+        	    	下一页
+        	    $else:
+        	    	$code:
+        	    		skip=limit*current
+        	    	<a href="/user_blog?name_id=$name_id&&skip=$skip">下一页</a>
+        	    $code:
+        	    	if total%limit==0:
+        	    		skip=limit*(total/limit - 1)
+        	    	else:
+        	    		skip=limit*(total/limit)
+        	    <a href="/user_blog?name_id=$name_id&&skip=$skip">尾页</a> 
+         		转到第<input id='pageno' name="pageno" type="text"  size=3  maxlength=3/>页&nbsp;
+        		<input id='but' type="button" value="转向"/>
+        	</span>	
+        	<p id="vars" style="display:none;">$limit,$size</p>
+        	<p id="url" style="display:none;">/user_blog?name_id=$name_id,limit=$limit</p>
+        </div>
+    </div>
+    <div class='content_right' >
+        <ul id='nav'>
+            <li>个人中心首页</li>
+            <li>
+            	内容管理
+                <img style="float:right;padding:14% 10%" src="../static/images/down_arrow.png" />
+            </li>
+                <div class='nav2' id='nav2' style="background:#000;padding:0 30px;display:none">
+                 <ul>
+                 	<li style="background:#FFF"><a href="#">我的博文</a></li>
+                    <li style="background:#FFF"><a href="#">我的信息</a></li>
+                 </ul>
+                 </div>
+            <li><a href="/wiki?name_id=$name_id" target='_blank'>知识协同</a></li>
+            <li><a href="/bbs?name_id=$name_id" target='_blank'>BBS论坛</a></li>
+            <li><a href="/download/papers?name_id=$name_id" target='_blank'>资料下载</a></li>
+            $if person_info['role']=='admin':
+            	<li>数据管理</li>
+        </ul>
+    </div>
+</div>
+<div class="footer">本网站版权为中国农业大学所有<br /><span id="sysmsg"></span></div>
+<p id='Htmlvar' style='display:none'>$name_id</p>
+</body>
+</html>
+

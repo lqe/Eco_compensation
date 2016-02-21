@@ -1,0 +1,79 @@
+$def with(topicInfo,replyInfo)
+
+$var  title : 发帖
+$var  jsName: bbsReply.js
+$var  cssName: bbsReply.css
+<div class='content'>
+    <div class='TTitle'>
+    $topicInfo['TTitle']
+    </div>
+    <div class='record'>
+        <div class='left' >
+        	<div class='pic'>
+            	<img src="../../static/bbs/images/default.jpg" />
+            </div>
+            <div class="selfInfo">
+            	楼主 $topicInfo['TUid']
+            </div>
+        </div>
+        <div class='right'>
+            <div class='top'>
+                <div class='time'>发表时间:：$topicInfo['TTime']</div>
+                <div class='floor'>楼主</div>
+            </div>
+            <div class="TContents">
+            	$:topicInfo['TContents']
+            </div>
+            <div class='bot'>
+                <div class='replyCount'>
+                    回复次数: $len(replyInfo)
+                </div>
+                <div class='TClickCount'>帖子点击次数:$topicInfo['TClickCount']</div>
+            </div>
+        </div>
+    </div>
+    $ i=0
+    $for replyList in replyInfo:
+    	$code:i=i+1
+		<div class='record'>
+        <div class='left' >
+        	<div class='pic'>
+            	<img src="../../static/bbs/images/default.jpg" />
+            </div>
+            <div class="selfInfo">
+            	$replyList['RUid']
+            </div>
+        </div>
+        <div class='right'>
+            <div class='top'>
+                <div class='time'>评论时间: $replyList['RTime']</div>
+                <div class='floor'>#$i楼</div>
+            </div>
+            <div class="TContents">
+            	 $:replyList['RContents']
+            </div>
+            <div class='bot'>
+                <div class='replyCount'>
+                    评论时间: $replyList['RTime']
+                </div>
+                <div class='vote'>
+                    <ul>
+                    	<div style="display:none">$replyList['_id']</div>
+                        <li>赞一个[$replyList['RGoodComment']]&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                        <li>踢一下[$replyList['RNegativeComment']]</li>
+                    </ul>
+                </div> 
+            </div>
+        </div>
+    	</div>	
+	<div class='relpy'>
+    <form method="post" id='form' action="\bbs\reply\addReply">
+    	<input type="text" value="$topicInfo['TId']"  name='TId' style="display: none;"/>
+        <input type="text" value="$logged()"  name='RUid' style="display: none;"/>
+        <textarea name='RContents' cols="100" rows="5">
+        </textarea><br />
+        <input type="button" value="提交" />
+        <input type="reset" value="清空" />
+    </form>
+</div>
+</div>

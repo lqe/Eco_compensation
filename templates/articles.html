@@ -1,0 +1,71 @@
+$def with(articles,skip,limit,total)
+
+$var title:新闻简讯
+$var cssfiles: articles.css
+$var jsfiles: common.js articles.js
+
+<!--  <div class='left'>
+<div>最新政策</div>
+<div>最新消息</div>
+<div>热点新闻</div>
+<div></div>
+<div></div>
+</div>-->
+
+<div class='right' style='float:left; padding:0 20px; width:600px;'>
+	<div  class="postion"> 
+		$code:
+			if articles[0]['category']=='policies':
+				category='新闻'
+		您当前位置：<a href="/">首页</a> >> <a href="#">$category</a>  
+	</div>  
+ 	<div class="articleList">
+      	<ul>
+      		$for i in range(len(articles)):
+          		<li>
+            		<div class="right_title">
+            			<a  href='/?_id=$articles[i]["_id"]' target="_blank">
+                			$if len(articles[i]['title'])>20:$articles[i]['title'][:20]...
+                			$else:$articles[i]['title']
+                    	</a>
+                  	</div>
+                  	<div class="right_time">$articles[i]['date']</div>
+                  	<div class='_id' style="display:none">$articles[i]['_id']</div>
+         		</li>
+     	</ul>
+    </div>
+	<div class='pagenoSkip'>
+       	<span>
+			$code:
+        		current=skip/limit+1
+        		if total%limit==0:
+        			size=total/limit
+        		else:
+        			size=total/limit+1
+       		共$total条记录&nbsp;&nbsp;当前第$current/$size页&nbsp;
+       	    <a href="/?category=policies">首页</a>
+			$if current==1:
+				上一页
+			$else:
+				$code:
+ 					skip=(current-2)*limit
+				<a href="/?category=policies&&skip=$skip">上一页</a>
+			$if current==size:
+				下一页
+			$else:
+				$code:
+					skip=limit*current
+				<a href="/?category=policies&&skip=$skip">下一页</a>
+			$code:
+				if total%limit==0:
+					skip=limit*(total/limit - 1)
+				else:
+					skip=limit*(total/limit)
+       	    <a href="/?category=policies&&skip=$skip">尾页</a> 
+        		转到第<input id='pageno' name="pageno" type="text"  size=3  maxlength=3/>页&nbsp;
+       		<input id='but' type="button" value="转向"/>
+       	</span>	
+       	<p id="vars" style="display:none;">$limit,$size</p>
+       	<p id="url" style="display:none;">/?category=policies,limit=$limit</p>
+	</div>
+</div>

@@ -1,0 +1,19 @@
+
+@charset "utf-8";
+/* CSS Document */
+
+
+.content,.content1,.content2,.content3,.content4,.content5,.content6,.content7{margin:0 auto;width:860px;overflow:hidden;}
+.content{border:1px solid #CCC ;background:#DDEEF8;}
+.content1{ height:35px; padding:5px 0 6px 8px; border-bottom:2px dashed #CCCCCC}
+.content2{ height:45px;padding:14px 0 15px 50px;}
+.content3{padding:0 50px}
+.textarea_id{ width:760px;overflow:hidden;border:1px solid #CCC}
+.content4{ float:left; padding:10px 0 0 50px;}
+.tip,.maxScoreValue{padding:10px 10px; height:24px ;line-height:24px;}
+.Group,.Section,.score,.maxScoreValue,.tip,.classification{float:left;}
+.divBtn{margin:0 auto;width:160px;padding-top:10px;}
+.btn{ width:100px; height:30px; font-size:16px; color:#609; cursor:pointer;}
+.content5{ float:left; padding:10px 0 0 50px;}
+.content6{ float:left; padding:10px 0 0 50px;}
+.content7{ float:left; padding:10px 0 0 50px;margin-bottom: 40px;}

@@ -1,0 +1,36 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+
+.content{overflow:hidden;margin:0 auto;padding: 10px 0;}
+
+.content .left{ float:left; width:300px;overflow:hidden;}
+.left ul{border:1px solid;font-size:1em}
+.left li{border:1px solid ;padding-left:20px; height:30px;line-height:30px}
+
+.content .right{ float:right; width:700px; overflow:hidden;}
+
+.right table{margin:0 auto;}
+.right tr{border:1px solid}
+.right td{border:1px solid}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

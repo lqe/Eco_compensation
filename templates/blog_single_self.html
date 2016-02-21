@@ -1,0 +1,85 @@
+$def with(name_id,classification,blog)
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>博文内容管理</title>
+<!-- 自定义css -->
+<link rel="stylesheet" href="../static/css/blog_single_self.css" />
+<!-- jquery -->
+<script src="../static/jquery/jquery-1.6.2.min.js"></script>
+<!-- 自定义js -->
+<script type="text/javascript" src="../static/javascript/blog_single_self.js"></script>
+<script type="text/javascript" src="../static/javascript/common.js"></script>
+</head>
+
+<body>
+<div class="top">
+	<div class="blognav" >
+    	<div class="blogtoparea">
+        	<a href="">$name_id的博客</a>
+           	<a class="edit" onclick="return false;" href="javscript:;">[<cite>编辑</cite>]</a>
+      	</div>
+        <div class="blognavInfo"> 
+          <span><a href="#">首页</a></span>
+          <span><a href="/blog_content_manage?name_id=$name_id">博文目录</a></span>
+          <span><a href="#">图片</a></span>
+          <span class="last"><a href="#">关于我</a></span>
+      </div>
+    </div>
+</div>
+<div class='banner'>
+	<input type="button"  onclick="window.location.href='/user_blog?name_id=$name_id'" value="个人中心" />
+    <input type="button"  onclick="window.location.href='/write_blog?name_id=$name_id'" value="发博文" />
+</div>
+<div class='content'>
+	<div class='content_left'>
+        <div class="left1">
+        	<div class="left1_title">
+          		  博文
+            </div>
+            <div class="left1_content">
+            	<ul>
+            		$code:
+            			sum=0
+            			for i in classification.values():
+            				sum+=i
+            		<li>.全部博文（$sum）</li>
+	            	$if len(classification):
+	            		$for key in classification:
+	                		<li>.$key ($classification[key])</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 单片文章细节 -->
+    <div class="content_right" >
+    	<div class="right1_title">正文</div>
+   		<div class="single_blog_title">标题：$blog[0][u'title']</div>
+   		<div class="single_blog_classification">分类：$blog[0][u'classification']</div>
+   		<div class="single_blog_content">&nbsp;&nbsp; $:blog[0][u'content']</div>
+    
+	    <!-- 评论 -->
+	   	<div class='comment'>
+	   		<h3 class="reply-title">评论</h3>
+	   		<div class='commented'>
+		   		<ul>
+		   			$if 'comments' not in blog[0]:
+		   				<li class='commented_blank'>还没有评论</li>
+		   			$elif not blog[0][u'comments']:
+		   				<li class='commented_blank'>还没有评论</li>
+		   			$else:
+		   				$for i,comment in enumerate(blog[0][u'comments']):
+			   				<li>
+			   					<p style='padding:4px 0'>第$i楼</p>
+			   					$comment['author']　　　　$comment['date']<br/>
+			   					评论内容：$comment['content']
+			   				</li>
+		   		</ul>
+	   		</div>
+	  	</div>
+  	</div>
+</div>
+<div class="footer">本网站版权为中国农业大学所有<br/><span id="sysmsg"></span></div>
+</body>
+</html>

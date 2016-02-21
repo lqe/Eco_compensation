@@ -1,0 +1,204 @@
+$def with(articles,childrens,pos=[('root','root')],limit=1,skip=1)
+
+<!-- 网页标题 -->
+$var title : 词条目录 
+<div class="container" style="margin:60px 0 10px 0;">
+		<div id="article-breadcrumbs">
+			<ul class="breadcrumb pull-left">
+			    <li class="active">词条级别 </li>
+			    $for i in pos:
+			    	<li><a href="/wiki?postion=$i[0]">$i[1]</a></li>
+			</ul>
+			<div class="pull-left" style="margin-left: 10px;">
+			  <div class="btn-group">
+			    <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#" style="padding: 7px;" title="">
+			      <span class="glyphicon glyphicon-list-alt"></span>
+			      <span class="caret"></span>
+			    </a>
+			    <ul class="dropdown-menu">
+			    	$if childrens:
+			    		$for index,children in  enumerate(childrens):
+			    			$if index > 7:
+			    				<li><a href="#"><em>...and more"</em></a></li>
+			    				break;
+				    		<li><a href="/wiki?postion=$children['postion']">$children['title']</a></li>
+			        $else:
+			        	<li><a href="#"><em>没有子词条" </em></a></li>
+			      	<li class="divider"></li>
+			      	<li><a href="/wiki/catalog?$articles[0]['postion']">同一级的词条 &raquo;</a></li>
+			    </ul>
+			  </div>
+			</div>
+			<div class="pull-left" style="margin-left: 10px;">
+			  <div class="btn-group">
+			    <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#" style="padding: 7px;" title="Sub-articles for">
+			      <span class="glyphicon glyphicon-file"></span>
+			      <span class="caret"></span>
+			    </a>    
+			    <ul class="dropdown-menu">
+			      <li>
+			      	$if articles[0]['postion']!='root':
+			      		$code:
+			      			index=articles[0]['postion'].rfind('/')
+			      			postion=articles[0]['postion'][:index]
+				        <a href="/wiki/create?postion=$postion" style="padding: 7px;">
+				        	<span class="glyphicon glyphicon-arrow-right"></span>
+							创建同级词条
+				        </a>
+			        <a href="/wiki/create?postion=$articles[0]['postion']" style="padding: 7px;">
+			          <span class="glyphicon glyphicon-arrow-down"></span>
+						创建下级词条
+			        </a>
+			      </li>
+			    </ul>
+			  </div>
+			</div>
+			<div style="clear: both"></div>
+		</div>
+		<ul class="nav nav-pills" id="article-menu">
+			<li class="pull-right">
+				<button type="button" class="btn btn-link">
+			  		<a href="#" >
+			    		<span class="glyphicon glyphicon-time"></span> 历史记录
+			  		</a>
+			  	</button>
+			</li>
+			<li class="pull-right">
+				<button type="button" class="btn btn-link">
+			  		<a href="#" >
+			    		<span class="glyphicon glyphicon-edit"></span> 编辑
+			  		</a>
+			  	</button>
+			</li>
+			<li class="pull-right ">
+				<button type="button" class="btn btn-primary">
+			  		<a href="#" style='color:#fff' >
+			    		<span class="glyphicon glyphicon-home"></span> 视图
+			  		</a>
+			  	</button>
+			</li>
+			<li class="pull-left  ">
+				<h1 id="article-title">$articles[0]['title']/
+				$if articles[0]['postion']=='root':
+	          		<small style="font-size: 14px;">
+		            	<span class="glyphicon glyphicon-lock"></span> locked
+		            </small>
+        		</h1>
+			</li>
+		</ul>
+	</div>
+	
+	<!-- Main page contents go here -->
+	<div class='content' style='padding:10px 30px'>
+		<form class="form-search directory-toolbar">
+			<div class="well well-small">
+			  <div class="btn-group pull-left">
+				$if articles[0]['postion']!='root':
+				    <a href="#" class="btn btn-default">
+				      <span class="glyphicon glyphicon-arrow-up"></span>
+				    	  返回上一级
+				    </a>
+			    <a href="/wiki/create?postion=$articles[0]['postion']" class="btn btn-default">
+			      <span class="glyphicon glyphicon-plus"></span>
+			      	添加词条
+			    </a>
+			  </div>
+			  <div class="pull-right">
+			    <form methon='get'>
+			    	<input id='Filter' type='text' name=query placeholder='Filter...'/>
+			    	<input  type='hidden' name=postion value='$articles[0]['postion']'/>
+			    	
+			    </form>
+			  </div>
+			    <div class="pull-right" >
+			      <a href="#" onclick="window.location.href='/wiki/catalog?postion=$articles[0]['postion']'">清除</a>
+			    </div>
+			  <div class="clearfix"></div>
+			</div>
+		</form>
+		$code:
+			end=skip+limit
+			if end >= len(childrens):
+				end=None
+			total=len(childrens)
+			childrens=childrens[skip:end]
+			current=skip/limit+1
+			if total%limit==0:
+				size=total/limit
+			else:
+				size=total/limit+1
+		<p> 级别 <strong><a href="#">$articles[0]['postion']/</a></strong>  共$total条记录&nbsp;&nbsp; 当前第$current/$size页&nbsp; 共计 <strong>$len(childrens) 词条</strong> .</p>
+
+		<table class="table table-striped">
+			<tr>
+				<th>标题</th>
+		    	<th>位置</th>
+		    	<th>最后修改时间</th>
+		    	$if getPerson():
+					$if getPerson()['role']=='admin':
+		    			<th>删除</th>
+		  	</tr>
+			$if len(childrens):
+				$for ch in childrens:
+				    <tr>
+				      <td>
+				        <a href="/wiki?postion=$ch['postion']"> $ch['title'] </a> 
+				      </td>
+				      <td>
+				         $ch['postion'] 
+				      </td>
+				      <td>
+				        $ch['date']
+				      </td>
+				      $if getPerson():
+				      	$if getPerson()['role']=='admin':
+				      		$if not getNav(ch['postion'])[1]:
+							  	<td>
+							    	<span class="glyphicon glyphicon-trash catalog_del " style='cursor: pointer;'></span>
+									<span class='catalog_del_url' style='display:none'>/wiki/del?_id=$ch['_id']</span>
+							    </td>
+				      		$else:
+								<td>
+							    	<span class="glyphicon glyphicon-lock"  style='cursor: pointer;'></span>
+							    </td>
+				    </tr>
+			$else:   
+				<tr>
+			      <td colspan="100">
+			        <em>此级别上没有词条记录</em>
+			      </td>
+			    </tr>
+		</table>
+		<div>
+        	<ul class="pagination " style='margin-left: 35%;'>
+        	    <li><a href="/wiki/catalog?postion=root">首页</a></li>
+        	    $if current==1:
+        	    	<li><a href="#" disable>上一页</a></li>
+        	    $else:
+        	    	$code:
+        	    		skip=(current-2)*limit
+        	    	<li><a href="/wiki/catalog?postion=root&&limit=$limit&&skip=$skip">上一页</a></li>
+         	    $if current==size:
+        	    	<li><a href="#" disable>下一页</a>
+        	    $else:
+        	    	$code:
+        	    		skip=limit*current
+        	    	<li><a href="/wiki/catalog?postion=root&&limit=$limit&&skip=$skip">下一页</a></li>
+        	    $code:
+        	    	if total%limit==0:
+        	    		skip=limit*(total/limit - 1)
+        	    	else:
+        	    		skip=limit*(total/limit)
+        	    <li><a href="/wiki/catalog?postion=root&&limit=$limit&&skip=$skip">尾页</a></li> 
+        	</ul>
+        </div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
